@@ -1,7 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Libro
-from .forms import LibroForm
+from .forms import LibroForm , UserEditForm
+from django.contrib.auth.forms import AuthenticationForm , UserCreationForm
+from django.contrib.auth import login , authenticate
+from django.contrib.auth.decorators import login_required
+from .models import Libro , Avatar
+
+
 # Create your views here.
 
 def inicio(request):
@@ -43,7 +49,73 @@ def registrarvista(request):
 def comentar(request):
     return render(request, 'paginas/comentar.html')        
 
+#LOGIN
 
+def login_request(request):
+
+    if request.method == "POST":
+
+        form = AuthenticationForm(request , data= request.POST)
+
+        if form.is_valid():
+            usuario = form.cleaned_data.get("username")
+            contra = form.cleaned_data.get("password")
+
+            user = authenticate(username=usuario , password=contra)
+
+            if user is not None:
+                login(request,user)
+                avatares = Avatar.objects.filter(user=request.user.id)
+                
+            
+
+            else:
+                return render(request , "base.html" , {"mensaje": "Error, datos incorrectos"}) 
+
+        else:
+            return render(request , "base.html" , {"mensaje":"Formulario erroneo"})
+
+    form = AuthenticationForm()
+
+    return render(request, "paginas/loginvista.html" , {"form":form})
+
+
+def register(request):
+
+    if request.method == "POST":
+
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            
+
+    else:
+        form = UserCreationForm()
+    return render(request , "paginas/registrarvista.html" , {"form":form})
+
+def editarperfil(request):
+
+    usuario = request.user
+
+    if request.method == "POST":
+
+        mi_formulario = UserEditForm(request.POST)
+
+        if mi_formulario.is_valid():
+            informacion = mi_formulario.cleaned_data
+
+            usuario.email = informacion['email']
+            password = informacion['password1']
+            usuario.set_password(password)
+            usuario.save()
+
+            return render(request , "paginas/inicio.html")
+
+    else:
+        mi_formulario = UserEditForm(initial={'email':usuario.email})
+
+    return render (request , "paginas/editarperfil.html" , {"mi_formulario":mi_formulario , "usuario":usuario})
 
 
 
