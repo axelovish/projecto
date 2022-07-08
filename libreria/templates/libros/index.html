@@ -6,7 +6,7 @@
 
 <div class="card">
     <div class="card-header">
-        <a name="" id="" class="btn btn-success" href="{% url 'loginvista' %}" role="button">Agregar nuevo libro</a>
+        <a name="" id="" class="btn btn-success" href="{% url 'crear' %}" role="button">Agregar nuevo libro</a>
        
     <div class="card-body">
         <h4 class="card-title">Libros</h4>
@@ -19,6 +19,10 @@
                     <th>Imagen</th>
                     <th>Descripcion</th>
                     <th>Acciones</th>
+                    <th>autor</th>
+                    <th>fecha</th>
+                    <th>subtitulo</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +31,7 @@
                 <tr>
                     <td>{{ libro.id }}</td>
                     <td>{{ libro.titulo }}</td>
+                
                     <td>
                     <img src="{{ libro.imagen.url }}" height="100" />
                         
