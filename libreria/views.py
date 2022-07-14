@@ -50,8 +50,7 @@ def loginvista(request):
 def registrarvista(request):
     return render(request, 'paginas/registrarvista.html')
 
-def comentar(request):
-    return render(request, 'paginas/comentar.html')    
+    
 
 def leermas(request):
     return render(request, 'paginas/leermas.html')

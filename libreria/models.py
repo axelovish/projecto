@@ -6,9 +6,12 @@ class Libro(models.Model):
     titulo = models.CharField(max_length=100, verbose_name='Titulo')
     imagen = models.ImageField(upload_to='imagenes/',verbose_name="imagen", null=True)
     descripcion = models.TextField(verbose_name="descripcion", null=True)
+    subtitulo = models.TextField(verbose_name="subtitulo", null=True)
+    autor = models.TextField(verbose_name="autor", null=True)
+    fecha = models.TextField(verbose_name="fecha", null=True)
 
     def __str__(self):
-        fila = "Titulo: " + self.titulo + " - " + "descripcion: " + self.descripcion
+        fila = "Titulo: " + self.titulo + " - " + "descripcion: " + self.descripcion + " - " + "subtitulo: " + self.subtitulo + " - " + "autor: " + self.autor + " - " + "fecha:" + self.fecha
         return fila
 
     def delete(self, using=None, keep_parents=False):

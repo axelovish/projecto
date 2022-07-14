@@ -15,7 +15,6 @@ urlpatterns = [
     path('libros/editar<int:id>',views.editar, name='editar'),
     path('loginvista', views.login_request, name='loginvista'),
     path('registrarvista', views.register, name='registrarvista'),
-    path('comentar', views.comentar, name='comentar'),
     path('editarperfil' , views.editarperfil , name='editarperfil'),
     path('logout' , views.logoutUser, name='logout'),
     path('leermas' , views.leermas, name='leermas'),

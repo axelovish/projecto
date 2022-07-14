@@ -4,6 +4,20 @@
 
 {% block contenido  %} 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>CKEditor 5 – Classic editor</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+</head>
+
+<body>
+    <h1>Classic editor</h1>
+    <div id="editor">
+        <p>This is some sample content.</p>
+    </div>
+
 <div class="card">
     <div class="card-header">
         <a name="" id="" class="btn btn-success" href="{% url 'crear' %}" role="button">Agregar nuevo libro</a>
@@ -15,13 +29,14 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Titulo</th>
-                    <th>Imagen</th>
-                    <th>Descripcion</th>
-                    <th>Acciones</th>
-                    <th>autor</th>
-                    <th>fecha</th>
-                    <th>subtitulo</th>
+                    <th>Titulo</th> 
+                    <th>Subtitulo</th>
+                    <th>Autor</th>                                      
+                    <th>Fecha</th> 
+                    <th>Imagen</th>                 
+                    <th>Descripcion</th>                   
+                    <th>Acciones</th>                    
+                    
                     
                 </tr>
             </thead>
@@ -31,6 +46,9 @@
                 <tr>
                     <td>{{ libro.id }}</td>
                     <td>{{ libro.titulo }}</td>
+                    <td>{{ libro.subtitulo }}</td>
+                    <td>{{ libro.autor }}</td>
+                    <td>{{ libro.fecha }}</td>
                 
                     <td>
                     <img src="{{ libro.imagen.url }}" height="100" />
@@ -40,6 +58,9 @@
                     </td>              
                     <td>{{ libro.descripcion }}</td>
                     <td>  
+                        
+
+
                         <a name="" id="" class="btn btn-info" href="{% url 'editar' libro.id %}" role="button">Editar</a>
                         | 
                         <a name="" id="" class="btn btn-danger" href="{% url 'eliminar' libro.id %}" role="button">Borrar</a>
@@ -55,5 +76,13 @@
         
     </div>
 </div>
-
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+</body>
+</html>
 {% endblock %}
